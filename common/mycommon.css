@@ -1,0 +1,98 @@
+uni-tabbar, uni-tabbar .uni-tabbar {
+	margin-bottom: -1px !important;
+}
+.s-page-wrapper {
+	max-width: 750rpx;
+}
+.has-pd-20 {
+	padding: 40rpx !important;
+}
+.has-mgt-35 {
+	margin-top: 70rpx !important;
+}
+.is-size-25 {
+	font-size: 50rpx !important;
+}
+.has-title-color {
+	color: black;
+}
+.is-bold {
+	font-weight: 700 !important;
+}
+.has-desc-color {
+	color: #888888;
+}
+.has-mgt-20 {
+	margin-top: 40rpx !important;
+}
+.is-block {
+	display: block;
+}
+.has-mgt-60 {
+	margin-top: 120rpx !important;
+}
+.has-mgb-15 {
+	margin-bottom: 30rpx !important;
+}
+.is-response {
+	display: block;
+	width: 100%;
+	max-width: 100%;
+	height: auto;
+}
+
+.has-mgt-30 {
+	margin-top: 60rpx !important;
+}
+.has-mgt-10 {
+	margin-top: 20rpx !important;
+}
+.is-flex {
+	display: flex;
+}
+.is-column {
+	flex-direction: column;
+}
+.is-justify-center {
+	justify-content: center;
+}
+.is-align-center {
+	align-items: center;
+}
+.has-mglr-10 {
+	margin-left: 20rpx !important;
+	margin-right: 20rpx !important;
+}
+.has-mgtb-10 {
+	margin-top: 20rpx !important;
+	margin-bottom: 20rpx !important;
+}
+.has-radius {
+	border-radius: 4px;
+}
+.has-mgtb-20 {
+	margin-top: 40rpx !important;
+	margin-bottom: 40rpx !important;
+}
+.is-20vh {
+	height: 20vh;
+}
+.is-right {
+	text-align: right !important;
+}
+.is-grey {
+	color: #888888 !important;
+}
+.has-mgr-20 {
+	margin-right: 40rpx !important;
+}
+.is-blue {
+	color: #2A62FF !important;
+}
+/* 字体居中 */
+.is-center {
+	text-align: center !important;
+}
+.has-pdt-60 {
+	padding-top: 120rpx !important;
+}

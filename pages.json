@@ -3,14 +3,119 @@
 		{
 			"path": "pages/index/index",
 			"style": {
-				"navigationBarTitleText": "uni-app"
+				"navigationBarTitleText": "选择身份"
 			}
-		}
+		},
+		{
+			"path":"pages/ucenter/stulogin",
+			"style": {
+				"navigationBarTitleText": "学生登录"
+			}
+		},
+		{
+			"path":"pages/ucenter/tealogin",
+			"style": {
+				"navigationBarTitleText": "教师登录"
+			}
+		},
+		{
+			"path": "pages/tabbar/home/home",
+			"style": {
+				"navigationBarTitleText": "首页",
+				"enablePullDownRefresh": true
+			}
+		},
+		{
+			"path": "pages/tabbar/contact/contact",
+			"style": {
+				"navigationBarTitleText": "通讯录"
+			}
+		},
+		{
+			"path": "pages/tabbar/selecttab/selecttab",
+			"style": {
+				"navigationBarTitleText": "选择"
+			}
+		},
+		{
+			"path": "pages/tabbar/college/college",
+			"style": {
+				"navigationBarTitleText": "学院"
+			}
+		},
+		{
+			"path": "pages/tabbar/myself/myself",
+			"style": {
+				"navigationBarTitleText": "我"
+			}
+		},
+		{
+			"path": "pages/select-tab-detail/send-notice/send-notice",
+			"style": {
+				"navigationBarTitleText":"发布公告"
+			}
+		},
+		{
+			"path": "pages/select-tab-detail/msg-apply/msg-apply",
+			"style": {
+				"navigationBarTitleText":"信息申请"
+			}
+		},
+		{
+			"path": "pages/select-tab-detail/feedback/feedback",
+			"style": {
+				"navigationBarTitleText":"应用反馈"
+			}
+		},
+        {
+            "path" : "pages/article-info/article-info",
+            "style" : {
+				"navigationBarTitleText":"文章详情"
+			}
+        }
 	],
 	"globalStyle": {
-		"navigationBarTextStyle": "black",
+		"navigationBarTextStyle": "white",
 		"navigationBarTitleText": "uni-app",
-		"navigationBarBackgroundColor": "#F8F8F8",
-		"backgroundColor": "#F8F8F8"
+		"navigationBarBackgroundColor": "dodgerblue",
+		"backgroundColor": "#F4F5F6"
+	},
+	"tabBar": {
+		"borderStyle": "black",
+		"backgroundColor": "#ECECEC",
+		"color": "#888888",
+		"selectedColor": "dodgerblue",
+		"list": [{
+				"pagePath": "pages/tabbar/home/home",
+				"iconPath": "static/img/tabbar/home.png",
+				"selectedIconPath": "static/img/tabbar/homeactive.png",
+				"text": "首页"
+			},
+			{
+				"pagePath": "pages/tabbar/contact/contact",
+				"iconPath": "static/img/tabbar/contact.png",
+				"selectedIconPath": "static/img/tabbar/contactactive.png",
+				"text": "通讯录"
+			},
+			//#ifndef MP-WEIXIN
+			{
+				"pagePath": "pages/tabbar/selecttab/selecttab",
+				"iconPath": "static/img/tabbar/add.png",
+				"selectedIconPath": "static/img/tabbar/addactive.png"
+			},
+			//#endif
+			{
+				"pagePath": "pages/tabbar/college/college",
+				"iconPath": "static/img/tabbar/college.png",
+				"selectedIconPath": "static/img/tabbar/collegeactive.png",
+				"text": "学院"
+			},
+			{
+				"pagePath": "pages/tabbar/myself/myself",
+				"iconPath": "static/img/tabbar/me.png",
+				"selectedIconPath": "static/img/tabbar/meactive.png",
+				"text": "我"
+			}
+		]
 	}
 }
