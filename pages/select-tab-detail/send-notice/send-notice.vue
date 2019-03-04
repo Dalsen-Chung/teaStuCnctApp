@@ -74,6 +74,9 @@
 		},
 		methods: {
 			formSubmit: function(e) {
+				uni.showLoading({
+					title: '加载中'
+				});				
 				let formData = e.detail.value
 				uni.getStorage({
 					key: 'userInfo',
@@ -81,7 +84,6 @@
 						let userInfo = res.data
 						let param = {
 							notice_tea_id: userInfo.tea_id,
-							notice_time: (new Date()).getTime(),
 							notice_title: formData.title,
 							notice_content: formData.content,
 							college_id: formData.collegeId,
@@ -96,7 +98,18 @@
 								'content-type' : 'application/x-www-form-urlencoded'
 							},
 							success: (res) => {
-								console.log(res)
+								if (res.data) {
+									uni.hideLoading();
+									uni.showToast({
+										title: '提交审核成功',
+										icon: 'success'
+									});
+									setTimeout(function () {
+										uni.switchTab({
+											url:'/pages/tabbar/home/home'
+										})
+									},2000)
+								}
 							}
 						});	
 					}

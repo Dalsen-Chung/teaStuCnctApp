@@ -69,7 +69,6 @@
 						if (this.alertType === 'success') {
 							let userInfo = Object.assign({}, res.data.resBody)
 							userInfo.role = 'teacher'
-							console.log(userInfo)
 							uni.setStorage({
 								key: 'userInfo',
 								data: userInfo,

@@ -111,7 +111,7 @@
 				//#ifdef H5
 				var headDOM = document.getElementsByClassName("uni-page-head");
 				if(headDOM.length>0){
-					console.log('show isTransparent');
+					// console.log('show isTransparent');
 					if(headDOM[0].className.indexOf('transparent')>-1){
 						uni.createSelectorQuery().selectViewport().scrollOffset(res => {
 							if(res.scrollTop>0)
