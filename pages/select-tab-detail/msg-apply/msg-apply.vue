@@ -2,13 +2,13 @@
 	<view class="uni-padding-wrap uni-common-mt">
 		<form @submit="formSubmit">
 			<view class="uni-form-item uni-column">
-				<view class="title">请选择被查看人角色</view>
+				<view class="title">选择被查看人角色</view>
 				<view class="uni-list">
-					<radio-group @change="radioChange" name="role">
-						<label class="uni-list-cell uni-list-cell-pd" v-for="(item, index) in items" :key="item.value">
+					<radio-group @change="roleChange" name="role">
+						<label class="uni-list-cell uni-list-cell-pd" v-for="(item, index) in roleArr" :key="item.value">
 							<view>{{item.name}}</view>
 							<view>
-								<radio :value="item.value" :checked="index === current" />
+								<radio :value="item.value" :checked="index === currentRole" />
 							</view>
 						</label>
 					</radio-group>
@@ -20,18 +20,8 @@
 					<textarea placeholder="请输入理由" name="content" maxlength="-1" :auto-height="true" />
 				</view>
 			</view>
-			<view class="uni-form-item uni-column">
-				<view class="uni-title">公告范围</view>
-				<view class="uni-list">
-					<view class="uni-list-cell uni-list-cell-pd">
-						<view class="uni-list-cell-db" v-if="isAllCollege">全校发送</view>
-						<view class="uni-list-cell-db" v-if="!isAllCollege">指定学院发送</view>
-						<switch :checked="isAllCollege" name="isAllCollege" @change="switchChange" />
-					</view>
-				</view>
-			</view>
-			<view class="uni-form-item uni-column" v-if="!isAllCollege">
-				<view class="uni-title">选择可查看的学院</view>
+			<view class="uni-form-item uni-column" v-if="collegeArr.length !== 0">
+				<view class="uni-title">选择被查看人的学院</view>
 				<view class="uni-list">
 					<view class="uni-list-cell">
 						<view class="uni-list-cell-left">
@@ -46,8 +36,8 @@
 					</view>
 				</view>
 			</view>
-			<view class="uni-form-item uni-column" v-if="!isAllCollege">
-				<view class="uni-title">选择可查看的专业</view>
+			<view class="uni-form-item uni-column" v-if="majorArr.length !== 0">
+				<view class="uni-title">选择被查看人的专业</view>
 				<view class="uni-list">
 					<view class="uni-list-cell">
 						<view class="uni-list-cell-left">
@@ -61,6 +51,12 @@
 						</view>
 					</view>
 				</view>
+			</view>
+			<view class="uni-form-item uni-column" v-if="stuArr.length !== 0">
+				<view class="uni-title">选择被查看人</view>
+				<navigator url="/pages/phones/phones" hover-class="navigator-hover">
+					<button type="default">跳转到新页面</button>
+				</navigator>
 			</view>
 			<view class="uni-btn-v">
 				<button formType="submit" type="primary">提交申请</button>
@@ -78,18 +74,9 @@
 				majorArr: [],
 				majorIndex: 0,
 				majorId: '',
-				isAllCollege: true,
-				items: [{
-						value: '1',
-						name: '学生',
-						checked: 'true'
-					},
-					{
-						value: '2',
-						name: '教师',
-					},
-				],
-				current: 0
+				roleArr: [],
+				currentRole: 0,
+				stuArr: []
 			}
 		},
 		methods: {
@@ -108,7 +95,6 @@
 							notice_content: formData.content,
 							college_id: formData.collegeId,
 							major_id: formData.majorId,
-							notice_is_all: formData.isAllCollege ? 1 : 0
 						}
 						uni.request({
 							url: 'http://localhost/stuTeaCtct/index.php/app/nt_mgt/save_notice',
@@ -142,9 +128,35 @@
 			bindMajorPickerChange: function (e) {
 				console.log(e.target.value)
 				this.majorIndex = e.target.value
+				this.majorId = this.majorArr[this.majorIndex].major_id
+				this.getStudentByCM()
 			},
-			switchChange: function (e) {
-				this.isAllCollege = e.target.value
+			getRole: function () {
+				uni.request({
+					url: 'http://localhost/stuTeaCtct/index.php/app/role/getRole',
+					method:'POST',
+					data: {},
+					header: {
+						'content-type' : 'application/x-www-form-urlencoded'
+					},
+					success: (res) => {
+						let data = res.data
+						data.forEach((obj,index) => {
+							if (index === 0) {
+								this.roleArr.push({
+									value: obj.role_id,
+									name: obj.role_name,
+									checked: 'true'
+								})
+							} else {
+								this.roleArr.push({
+									value: obj.role_id,
+									name: obj.role_name,
+								})
+							}
+						})
+					}
+				});
 			},
 			getCollege: function () {
 				uni.request({
@@ -174,20 +186,40 @@
 					},
 					success: (res) => {
 						this.majorArr = res.data
+						this.majorId = this.majorArr[this.majorIndex].major_id
+						this.getStudentByCM()
 					}
 				});				
 			},
-			radioChange: function(evt) {
-				for (let i = 0; i < this.items.length; i++) {
-					if (this.items[i].value === evt.target.value) {
-						this.current = i;
+			roleChange: function(evt) {
+				for (let i = 0; i < this.roleArr.length; i++) {
+					if (this.roleArr[i].value === evt.target.value) {
+						this.currentRole = i;
 						break;
 					}
 				}
+			},
+			getStudentByCM: function () {
+				uni.request({
+					url: 'http://localhost/stuTeaCtct/index.php/app/student/getStudentByCM',
+					method:'POST',
+					data: {
+						collegeId: this.collegeId,
+						majorId: this.majorId
+					},
+					header: {
+						'content-type' : 'application/x-www-form-urlencoded'
+					},
+					success: (res) => {
+						console.log(res)
+						this.stuArr = res.data
+					}
+				});
 			}
 		},
 		onLoad: function () {
 			this.getCollege()
+			this.getRole()
 		}
 	}
 </script>
