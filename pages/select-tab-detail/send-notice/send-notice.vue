@@ -74,6 +74,7 @@
 		},
 		methods: {
 			formSubmit: function(e) {
+				let that = this
 				uni.showLoading({
 					title: '加载中'
 				});				
@@ -86,10 +87,11 @@
 							notice_tea_id: userInfo.tea_id,
 							notice_title: formData.title,
 							notice_content: formData.content,
-							college_id: formData.collegeId,
-							major_id: formData.majorId,
+							college_id: that.collegeId,
+							major_id: that.majorId,
 							notice_is_all: formData.isAllCollege ? 1 : 0
 						}
+						console.log(param)
 						uni.request({
 							url: 'http://localhost/stuTeaCtct/index.php/app/nt_mgt/save_notice',
 							method:'POST',
@@ -120,8 +122,8 @@
 				this.getMajorByCollegeId()
 			},
 			bindMajorPickerChange: function (e) {
-				console.log(e.target.value)
 				this.majorIndex = e.target.value
+				this.majorId = this.majorArr[this.majorIndex].major_id
 			},
 			switchChange: function (e) {
 				this.isAllCollege = e.target.value
@@ -154,6 +156,7 @@
 					},
 					success: (res) => {
 						this.majorArr = res.data
+						this.majorId = this.majorArr[this.majorIndex].major_id
 					}
 				});				
 			}

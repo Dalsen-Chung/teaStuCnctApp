@@ -82,6 +82,12 @@
 								}
 							})
 						}
+					},
+					fail: () => {
+						this.alertText = '登录失败,服务器错误!';
+						this.alertType = 'error';
+						this.login.loading = false;
+						this.HMmessages.show(this.alertText,{icon: this.alertType});
 					}
 				});
 			}

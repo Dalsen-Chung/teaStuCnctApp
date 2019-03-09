@@ -14,12 +14,6 @@
 					</radio-group>
 				</view>
 			</view>
-			<view class="uni-form-item uni-column">
-				<view class="title">申请理由</view>
-				<view class="uni-textarea">
-					<textarea placeholder="请输入理由" name="content" maxlength="-1" :auto-height="true" />
-				</view>
-			</view>
 			<view class="uni-form-item uni-column" v-if="collegeArr.length !== 0">
 				<view class="uni-title">选择被查看人的学院</view>
 				<view class="uni-list">
@@ -52,11 +46,20 @@
 					</view>
 				</view>
 			</view>
-			<view class="uni-form-item uni-column" v-if="stuArr.length !== 0">
+			<view class="uni-form-item uni-column" v-if="collegeId && majorId">
 				<view class="uni-title">选择被查看人</view>
-				<navigator url="/pages/phones/phones" hover-class="navigator-hover">
-					<button type="default">跳转到新页面</button>
+				<navigator hover-class="navigator-hover"
+					:url="'/pages/phones/phones?collegeId='+collegeId+'&majorId='+majorId+'&roleId='+roleId" >
+					<button type="default">
+						{{ selectedName.length === 0 ? '从通讯录中选择' : '已选：' + selectedName }}
+					</button>
 				</navigator>
+			</view>
+			<view class="uni-form-item uni-column">
+				<view class="title">申请理由</view>
+				<view class="uni-textarea">
+					<textarea placeholder="请输入理由" name="applyReason" maxlength="-1" :auto-height="true" />
+				</view>
 			</view>
 			<view class="uni-btn-v">
 				<button formType="submit" type="primary">提交申请</button>
@@ -76,28 +79,46 @@
 				majorId: '',
 				roleArr: [],
 				currentRole: 0,
-				stuArr: []
+				roleId: '',
+				selectedName: '',
+				selectId: ''
 			}
 		},
 		methods: {
 			formSubmit: function(e) {
+				let that = this
 				uni.showLoading({
 					title: '加载中'
 				});				
 				let formData = e.detail.value
+				if (that.selectedName.length === 0) {
+					uni.showToast({
+						title: '请选择被查看人',
+						icon: 'none'
+					})
+					return
+				}
+				if (formData.applyReason.length === 0) {
+					uni.showToast({
+						title: '请填写申请原因',
+						icon: 'none'
+					})
+					return
+				}
 				uni.getStorage({
 					key: 'userInfo',
 					success: function(res) {
 						let userInfo = res.data
 						let param = {
-							notice_tea_id: userInfo.tea_id,
-							notice_title: formData.title,
-							notice_content: formData.content,
-							college_id: formData.collegeId,
-							major_id: formData.majorId,
+							apply_reason: formData.applyReason,
+							apply_user_id: userInfo.stu_id ? userInfo.stu_id : userInfo.tea_id,
+							apply_user_type: userInfo.role_id,
+							check_user_id: that.selectId,
+							check_user_type: that.roleId,
 						}
+						console.log(param)
 						uni.request({
-							url: 'http://localhost/stuTeaCtct/index.php/app/nt_mgt/save_notice',
+							url: 'http://localhost/stuTeaCtct/index.php/app/apply/saveApply',
 							method:'POST',
 							data: param,
 							header: {
@@ -126,7 +147,7 @@
 				this.getMajorByCollegeId()
 			},
 			bindMajorPickerChange: function (e) {
-				console.log(e.target.value)
+				// console.log(e.target.value)
 				this.majorIndex = e.target.value
 				this.majorId = this.majorArr[this.majorIndex].major_id
 				this.getStudentByCM()
@@ -155,6 +176,7 @@
 								})
 							}
 						})
+						this.roleId = this.roleArr[0].value
 					}
 				});
 			},
@@ -187,39 +209,26 @@
 					success: (res) => {
 						this.majorArr = res.data
 						this.majorId = this.majorArr[this.majorIndex].major_id
-						this.getStudentByCM()
 					}
 				});				
 			},
-			roleChange: function(evt) {
+			roleChange: function(evt) {	//	角色变换触发事件
+				this.roleId = evt.target.value
 				for (let i = 0; i < this.roleArr.length; i++) {
 					if (this.roleArr[i].value === evt.target.value) {
 						this.currentRole = i;
 						break;
 					}
 				}
-			},
-			getStudentByCM: function () {
-				uni.request({
-					url: 'http://localhost/stuTeaCtct/index.php/app/student/getStudentByCM',
-					method:'POST',
-					data: {
-						collegeId: this.collegeId,
-						majorId: this.majorId
-					},
-					header: {
-						'content-type' : 'application/x-www-form-urlencoded'
-					},
-					success: (res) => {
-						console.log(res)
-						this.stuArr = res.data
-					}
-				});
 			}
 		},
-		onLoad: function () {
-			this.getCollege()
-			this.getRole()
+		onLoad: function (option) {
+			this.getCollege()	//	获取学院
+			this.getRole()	//	获取角色
+			if (JSON.stringify(option) !== '{}') {
+				this.selectedName = option.name
+				this.selectId = option.id
+			}
 		}
 	}
 </script>
