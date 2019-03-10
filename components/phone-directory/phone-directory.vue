@@ -1,7 +1,7 @@
 <template>
 	<view class="phone-main" :style="{height: winHeight + 'px'}">
 		<view class="phone-main-search">
-			<navigator :url="'phone-search?phones=' + phonesEscape" hover-class="none">
+			<navigator :url="'/pages/phones/phone-search?phones=' + phonesEscape" hover-class="none">
 				<input disabled="false" class="phone-main-input" type="text" placeholder="请输入要搜索的联系人"/>
 			</navigator>
 		</view>

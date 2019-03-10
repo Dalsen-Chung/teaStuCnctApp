@@ -67,12 +67,6 @@
 				"navigationBarTitleText":"应用反馈"
 			}
 		},
-        {
-            "path" : "pages/article-info/article-info",
-            "style" : {
-				"navigationBarTitleText":"文章详情"
-			}
-        },
 		{
 			"path" : "pages/phones/phones", 
 			"style" : {
@@ -87,6 +81,30 @@
 			"path" : "pages/phones/phone-search", 
 			"style" : {
 				"navigationBarTitleText" : "搜索联系人"
+			}
+		},
+		{
+			"path": "pages/self-info/self-info",
+			"style": {
+				"navigationBarTitleText": "个人信息"
+			}
+		},
+		{
+			"path": "pages/tabbar/college/college-detail",
+			"style": {
+				"navigationBarTitleText": "学院信息"
+			}
+		},
+		{
+			"path": "pages/tabbar/college/major-detail",
+			"style": {
+				"navigationBarTitleText": "专业信息"
+			}
+		},
+		{
+			"path": "pages/tabbar/college/branch-detail",
+			"style": {
+				"navigationBarTitleText": "机构信息"
 			}
 		}
 	],

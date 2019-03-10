@@ -1,30 +1,24 @@
 <template>
 	<view class="content">
-		通讯录
+		<contact-list></contact-list>
 	</view>
 </template>
 
 <script>
+	import contactList from '@/pages/phones/phones'
 	export default {
 		name: 'contact',
+		components:{contactList},
 		data() {
 			return {
-				title: 'contact'
 			}
 		},
-		onLoad() {
-
-		},
 		methods: {
-
+		},
+		onLoad() {
 		}
 	}
 </script>
 
 <style>
-	.content {
-		text-align: center;
-		height: 400upx;
-		margin-top: 200upx;
-	}
 </style>

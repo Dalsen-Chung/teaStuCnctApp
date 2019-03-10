@@ -79,7 +79,7 @@
 				majorId: '',
 				roleArr: [],
 				currentRole: 0,
-				roleId: '',
+				roleId: '2', // 默认为学生
 				selectedName: '',
 				selectId: ''
 			}
@@ -150,7 +150,6 @@
 				// console.log(e.target.value)
 				this.majorIndex = e.target.value
 				this.majorId = this.majorArr[this.majorIndex].major_id
-				this.getStudentByCM()
 			},
 			getRole: function () {
 				uni.request({
@@ -176,7 +175,8 @@
 								})
 							}
 						})
-						this.roleId = this.roleArr[0].value
+						// this.roleId = this.roleArr[0].value
+						this.roleChange({target:{value: this.roleId}})
 					}
 				});
 			},
@@ -215,7 +215,7 @@
 			roleChange: function(evt) {	//	角色变换触发事件
 				this.roleId = evt.target.value
 				for (let i = 0; i < this.roleArr.length; i++) {
-					if (this.roleArr[i].value === evt.target.value) {
+					if (this.roleArr[i].value === this.roleId) {
 						this.currentRole = i;
 						break;
 					}
@@ -228,6 +228,7 @@
 			if (JSON.stringify(option) !== '{}') {
 				this.selectedName = option.name
 				this.selectId = option.id
+				this.roleId = option.roleId
 			}
 		}
 	}

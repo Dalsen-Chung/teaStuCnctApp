@@ -96,3 +96,8 @@ uni-tabbar, uni-tabbar .uni-tabbar {
 .has-pdt-60 {
 	padding-top: 120rpx !important;
 }
+
+.college .uni-list-cell__icon-img {
+	width: 64rpx !important;
+	height: 64rpx !important;
+}

@@ -22,7 +22,7 @@
 					:key="innerItem.id"
 					:data-name="innerItem.name"
 					:data-id="innerItem.id"
-					:data-phoneNumber="innerItem.phoneNumber"
+					:data-roleId="innerItem.roleId"
 					>
 					{{innerItem.name}}
 					</view>
