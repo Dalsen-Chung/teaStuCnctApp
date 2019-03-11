@@ -25,7 +25,7 @@
 			paramClick (e) {
 				if (this.showInfo) {
 					uni.navigateTo({
-						url: '/pages/self-info/self-info?name='+e.name+'&id='+e.id+'&roleId='+e.roleid
+						url: '/pages/self-info/self-info?id='+e.id+'&roleId='+e.roleid
 					});
 				} else {
 					uni.redirectTo({

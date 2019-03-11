@@ -80,17 +80,20 @@
 				</view>
 			</uni-card>
 			<uni-card 
-				title="家庭住址 (需申请)"
+				title="家庭住址"
 				v-if="roleId==='2'"
 				thumbnail="../../static/img/selfInfo/address.png">
-				<view class="uni-form-item uni-column">
+				<view class="uni-form-item uni-column" v-if="showStuAddress === false">
 					<view class="title">申请理由</view>
 					<view class="uni-input">
 						<input type="text" name="applyReason" v-model="applyReason" placeholder="请输入理由" />
 					</view>
+					<view class="uni-center">
+						<uni-tag text="点击申请查看" type="success" @click="applyMsg"></uni-tag>
+					</view>
 				</view>
-				<view class="uni-center">
-					<uni-tag text="点击申请查看" type="success" @click="applyMsg"></uni-tag>
+				<view class="uni-textarea" v-else="showStuAddress === true">
+					<textarea name="applyReason" maxlength="-1" v-model="info.stu_address" :disabled="true" />
 				</view>
 			</uni-card>
 		</view>
@@ -110,7 +113,8 @@
 				sexy: '',
 				info: {},
 				courseArr: [],
-				applyReason: ''
+				applyReason: '',
+				showStuAddress: false
 			}
 		},
 		methods: {
@@ -193,6 +197,7 @@
 				this.userId = option.id
 				this.roleId = option.roleId
 				this.getSelfInfo()
+				this.showStuAddress = option.showAddress ? true : false
 			}
 		}
 	}

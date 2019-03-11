@@ -28,7 +28,7 @@
 					<view class="uni-text">
 						申请进度：
 						<uni-tag size="small" text="待审核" type="warning" v-if="apply.apply_result == 0"></uni-tag>
-						<uni-tag size="small" text="审核通过,点击查看" type="success" v-if="apply.apply_result == 1" @click="lookAtInfo"></uni-tag>
+						<uni-tag size="small" text="审核通过,点击查看" type="success" v-if="apply.apply_result == 1" @click="lookAtInfo(apply)"></uni-tag>
 						<uni-tag size="small" text="审核不通过" type="error" v-if="apply.apply_result == 2"></uni-tag>
 					</view>
 				</uni-card>
@@ -86,13 +86,14 @@ export default {
 					'content-type' : 'application/x-www-form-urlencoded'
 				},
 				success: (res) => {
-					console.log(res)
 					this.applyArr = res.data
 				}
 			})
 		},
 		clickNotice(notice) {
-			
+			uni.navigateTo({
+				url: 'notice?noticeId=' + notice.notice_id
+			})
 		},
 		getMyInfo() {
 			let that = this
@@ -106,8 +107,10 @@ export default {
 				}
 			})
 		},
-		lookAtInfo() {
-			console.log('look')
+		lookAtInfo(apply) {
+			uni.navigateTo({
+				url: '/pages/self-info/self-info?id='+apply.check_user_id+'&roleId='+apply.check_user_type+'&showAddress=true'
+			})
 		}
     },
 	onLoad() {

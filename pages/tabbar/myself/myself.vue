@@ -1,26 +1,20 @@
 <template>
 	<view class="center">
-		<view class="logo" @click="goLogin" :hover-class="!login ? 'logo-hover' : ''">
-			<image class="logo-img" :src="login ? uerInfo.avatarUrl :avatarUrl"></image>
+		<view class="logo" :hover-class="!login ? 'logo-hover' : ''">
+			<image class="logo-img" :src="avatarUrl"></image>
 			<view class="logo-title">
-				<text class="uer-name">Hi，{{login ? uerInfo.name : '您未登录'}}</text>
-				<text class="go-login navigat-arrow" v-if="!login">&#xe65e;</text>
+				<text class="uer-name">Hi，{{userInfo.stu_name ? userInfo.stu_name : userInfo.tea_name}}</text>
 			</view>
 		</view>
-		<view class="center-list">
+		<view class="center-list"  @click="goToPage('/pages/tabbar/myself/account-mgt')">
 			<view class="center-list-item border-bottom">
 				<text class="list-icon">&#xe60f;</text>
 				<text class="list-text">帐号管理</text>
 				<text class="navigat-arrow">&#xe65e;</text>
 			</view>
-			<view class="center-list-item">
-				<text class="list-icon">&#xe639;</text>
-				<text class="list-text">新消息通知</text>
-				<text class="navigat-arrow">&#xe65e;</text>
-			</view>
 		</view>
 		<view class="center-list">
-			<view class="center-list-item border-bottom">
+			<view class="center-list-item border-bottom" @click="goToPage('/pages/select-tab-detail/feedback/feedback')">
 				<text class="list-icon">&#xe60b;</text>
 				<text class="list-text">帮助与反馈</text>
 				<text class="navigat-arrow">&#xe65e;</text>
@@ -31,7 +25,7 @@
 				<text class="navigat-arrow">&#xe65e;</text>
 			</view>
 		</view>
-		<view class="center-list">
+		<view class="center-list" @click="aboutApp">
 			<view class="center-list-item">
 				<text class="list-icon">&#xe614;</text>
 				<text class="list-text">关于应用</text>
@@ -46,16 +40,37 @@
 		data() {
 			return {
 				login: false,
-				avatarUrl: "../../../static/img/defaultUser.png",
-				uerInfo: {}
+				avatarUrl: "../../../static/img/avatar.png",
+				userInfo: {},
 			}
 		},
 		methods: {
-			goLogin() {
-				if (!this.login) {
-					console.log("点击前往登录")
-				}
+			getMyInfo() {
+				let that = this
+				uni.getStorage({
+					key: 'userInfo',
+					success: function(res) {
+						let userInfo = res.data
+						that.userInfo = userInfo
+						console.log(that.userInfo)
+					},
+				})
+			},
+			aboutApp() {
+				uni.showModal({
+					title: '关于应用',
+					content: '温雪莹制作@中山大学南方学院'
+				})
+			},
+			goToPage(url) {
+				if (!url) return;
+				uni.navigateTo({
+					url
+				});
 			}
+		},
+		onLoad() {
+			this.getMyInfo()
 		}
 	}
 </script>

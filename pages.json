@@ -21,8 +21,7 @@
 		{
 			"path": "pages/tabbar/home/home",
 			"style": {
-				"navigationBarTitleText": "首页",
-				"enablePullDownRefresh": true
+				"navigationBarTitleText": "首页"
 			}
 		},
 		{
@@ -105,6 +104,18 @@
 			"path": "pages/tabbar/college/branch-detail",
 			"style": {
 				"navigationBarTitleText": "机构信息"
+			}
+		},
+		{
+			"path": "pages/tabbar/home/notice",
+			"style": {
+				"navigationBarTitleText": "公告详情"
+			}
+		},
+		{
+			"path": "pages/tabbar/myself/account-mgt",
+			"style": {
+				"navigationBarTitleText": "账号管理"
 			}
 		}
 	],
