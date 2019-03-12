@@ -5,7 +5,7 @@
 		<!-- 作者信息 -->
 		<view class="grace-article-author-line">
 			<view :class="['grace-article-author', graceSkeleton == 'ing' ? 'grace-skeleton' : '']">
-				<view class="author-name">作者 : {{notice.notice_tea_id}}</view>
+				<view class="author-name">作者 : {{notice.tea_name}}</view>
 			</view>
 		</view>
 		<!-- 其他基本信息 -->
@@ -42,7 +42,7 @@ export default {
 				},
 				success: (res) => {
 					this.notice = res.data
-					console.log(this.notice)
+					// console.log(this.notice)
 				}
 			})
 		}

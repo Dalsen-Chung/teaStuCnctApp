@@ -115,6 +115,7 @@
 							apply_user_type: userInfo.role_id,
 							check_user_id: that.selectId,
 							check_user_type: that.roleId,
+							check_user_name: that.selectedName
 						}
 						console.log(param)
 						uni.request({
@@ -133,7 +134,7 @@
 									});
 									setTimeout(function () {
 										uni.switchTab({
-											url:'/pages/tabbar/home/home'
+											url:'/pages/tabbar/home/home?refresh=true'
 										})
 									},2000)
 								}

@@ -5,11 +5,11 @@
 		</view>
 		<view class="uni-form-item uni-column">
 			<view class="title">账号</view>
-			<input class="uni-input" name="account" :value="userInfo.stu_account ? userInfo.stu_account : userInfo.tea_account" :disabled="true" />
+			<input class="uni-input" name="account" v-model="userInfo.stu_account ? userInfo.stu_account : userInfo.tea_account" :disabled="true" />
 		</view>
 		<view class="uni-form-item uni-column">
 			<view class="title">手机号</view>
-			<input class="uni-input" name="phone" :value="userInfo.stu_phone ? userInfo.stu_phone : userInfo.tea_phone" />
+			<input class="uni-input" name="phone" v-model="phone" />
 		</view>
         <view class="uni-list is-mgt-15">
             <view class="uni-list-cell uni-list-cell-pd">
@@ -23,7 +23,7 @@
 		</view>
 		<view class="uni-form-item uni-column" v-if="canModifyPassWord">
 			<view class="title">新密码</view>
-			<input class="uni-input" name="newPassword" type="password" placeholder="请输入新密码" :value="newPassword" />
+			<input class="uni-input" name="newPassword" type="password" placeholder="请输入新密码" v-model="newPassword" />
 		</view>
 		<button type="primary" @click="saveInfo" class="is-mgt-20">保存设置</button>
 		<view class="uni-page-head">
@@ -42,7 +42,8 @@
 				canModifyPassWord: false,
 				switchTipsText: '关闭密码修改',
 				oldPassword: '',
-				newPassword: ''
+				newPassword: '',
+				phone: ''
 			}
 		},
 		methods: {
@@ -53,6 +54,7 @@
 					success: function(res) {
 						let userInfo = res.data
 						that.userInfo = userInfo
+						that.phone = userInfo.stu_phone ? userInfo.stu_phone : userInfo.tea_phone
 						console.log(that.userInfo)
 					},
 				})
@@ -66,7 +68,43 @@
 					this.switchTipsText = '关闭密码修改'
 			},
 			saveInfo() {
-				
+				uni.showLoading({
+					title:'设置中'
+				})
+				let requestPath = ''
+				let oldPassword = this.userInfo.stu_password ? this.userInfo.stu_password : this.userInfo.tea_password
+				if (this.userInfo.role_id === '2') {
+					requestPath = 'app/student/updateStudentInfo'
+				}else {
+					requestPath = 'app/teacher/updateTeacherInfo'
+				}
+				uni.request({
+					url: 'http://localhost/stuTeaCtct/index.php/' + requestPath,
+					method:'POST',
+					data: {
+						user_id: this.userInfo.stu_id ? this.userInfo.stu_id : this.userInfo.tea_id,
+						phone: this.phone,
+						password: this.newPassword === '' ? oldPassword : this.newPassword
+					},
+					header: {
+						'content-type' : 'application/x-www-form-urlencoded'
+					},
+					success: (res) => {
+						if (res) {
+							uni.hideLoading()
+							uni.showToast({
+								title: '设置成功',
+								success() {
+									setTimeout(function() {
+										uni.navigateBack({
+											delta:1
+										})
+									},1500)
+								}
+							})
+						}
+					}
+				});
 			},
 			logout() {
 				uni.showModal({

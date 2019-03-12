@@ -39,14 +39,14 @@
 				title="所属学院" 
 				thumbnail="../../static/img/selfInfo/college.png">
 				<view class="uni-center">
-					{{info.college_id}}
+					{{info.college_name}}
 				</view>
 			</uni-card>
 			<uni-card 
 				title="所属专业" 
 				thumbnail="../../static/img/selfInfo/major.png">
 				<view class="uni-center">
-					{{info.major_id}}
+					{{info.major_name}}
 				</view>
 			</uni-card>
 			<uni-card 
@@ -140,6 +140,7 @@
 						if (this.info.tea_course) {
 							this.courseArr = this.info.tea_course.split(',')
 						}
+						console.log(this.info)
 					}
 				});
 			},
@@ -165,6 +166,7 @@
 							apply_user_type: userInfo.role_id,
 							check_user_id: that.info.stu_id,
 							check_user_type: that.info.role_id,
+							check_user_name: that.info.stu_name
 						}
 						uni.request({
 							url: 'http://localhost/stuTeaCtct/index.php/app/apply/saveApply',
@@ -182,7 +184,7 @@
 									});
 									setTimeout(function () {
 										uni.switchTab({
-											url:'/pages/tabbar/home/home'
+											url:'/pages/tabbar/home/home?refresh=true'
 										})
 									},2000)
 								}

@@ -11,16 +11,19 @@
 				</uni-list>
             </view>
             <view v-show="current === 1">
+				<view class="uni-center" v-if="applyArr.length === 0">
+					<text class="uni-page-head">暂无信息工单!</text>
+				</view>
 				<uni-card 
 					v-for="(apply,index) in applyArr"
 					:key="index"
 					:title="apply.apply_time" 
 					thumbnail="../../../static/img/common/time.png">
 					<view class="uni-text">
-						被查看用户：{{apply.check_user_id}}
+						被查看用户：{{apply.check_user_name}}
 					</view>
 					<view class="uni-text">
-						被查看用户类型：{{apply.check_user_type}}
+						被查看用户类型：{{apply.role_name}}
 					</view>
 					<view class="uni-text">
 						申请理由：{{apply.apply_reason}}
@@ -87,6 +90,7 @@ export default {
 				},
 				success: (res) => {
 					this.applyArr = res.data
+					console.log(this.applyArr)
 				}
 			})
 		},
@@ -111,12 +115,15 @@ export default {
 			uni.navigateTo({
 				url: '/pages/self-info/self-info?id='+apply.check_user_id+'&roleId='+apply.check_user_type+'&showAddress=true'
 			})
+		},
+		getAllData() {
+			this.getNotice()
+			this.getMyInfo()
+			this.getApplyList()
 		}
     },
-	onLoad() {
-		this.getNotice()
-		this.getMyInfo()
-		this.getApplyList()
+	onLoad(option) {
+		this.getAllData()
 	}
 }
 </script>
