@@ -12,7 +12,7 @@
 		<view class="uni-form-item uni-column">
 			<view class="title"><uni-tag text="学院简介"  size="small" type="primary"></uni-tag></view>
 			<view class="uni-textarea">
-				<textarea :value="intro" maxlength="-1" :auto-height="false" :disabled="true" />
+				<textarea :value="intro" maxlength="-1" :auto-height="true" :disabled="true" />
 			</view>
 		</view>
 		<view class="uni-page-head">

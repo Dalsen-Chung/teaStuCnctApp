@@ -113,6 +113,7 @@
 							apply_reason: formData.applyReason,
 							apply_user_id: userInfo.stu_id ? userInfo.stu_id : userInfo.tea_id,
 							apply_user_type: userInfo.role_id,
+							apply_user_name: userInfo.stu_name ? userInfo.stu_name : userInfo.tea_name,
 							check_user_id: that.selectId,
 							check_user_type: that.roleId,
 							check_user_name: that.selectedName

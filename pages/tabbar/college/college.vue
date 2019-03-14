@@ -39,7 +39,7 @@
 			getCollege() {
 				uni.request({
 					url: 'http://localhost/stuTeaCtct/index.php/app/college/getCollege',
-					method:'POST',
+					method:'GET',
 					data: {},
 					header: {
 						'content-type' : 'application/x-www-form-urlencoded'

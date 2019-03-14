@@ -37,8 +37,8 @@
 					success: function(res) {
 						let userInfo = res.data
 						let param = {
-							fedb_user_name: formData.feedback,
-							fedb_content: userInfo.stu_name ? userInfo.stu_name : userInfo.tea_name,
+							fedb_user_name: userInfo.stu_name ? userInfo.stu_name : userInfo.tea_name,
+							fedb_content: formData.feedback,
 						}
 						uni.request({
 							url: 'http://localhost/stuTeaCtct/index.php/app/feedback/saveFeedback',
