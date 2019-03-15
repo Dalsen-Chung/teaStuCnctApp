@@ -9,7 +9,7 @@
 			 :thumb="collegeImgUrl + college.college_icon" @click="clickCollege(college)" ></uni-list-item>
 		</uni-list>
 		<view class="uni-page-head">
-			<view class="uni-page-head-title">管理机构</view>
+			<view class="uni-page-head-title">学术机构</view>
 		</view>
 		<uni-list>
 			<uni-list-item v-for="(branch,index) in branchArr" :key="index" 
