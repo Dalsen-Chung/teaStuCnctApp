@@ -136,7 +136,7 @@
 		background-color: #F0F0F0;
 	}
 	.accountMgt {
-		padding: 0 40rpx;
+		padding: 0 40rpx 20rpx;
 	}
 	.is-mgt-20 {
 		margin-top: 40rpx;

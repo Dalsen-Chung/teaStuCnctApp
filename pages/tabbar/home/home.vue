@@ -90,7 +90,7 @@ export default {
 				},
 				success: (res) => {
 					this.applyArr = res.data
-					console.log(this.applyArr)
+					// console.log(this.applyArr)
 				}
 			})
 		},
@@ -124,6 +124,13 @@ export default {
     },
 	onLoad(option) {
 		this.getAllData()
+	},
+	onPullDownRefresh() {
+		this.getNotice()
+		this.getApplyList()
+        setTimeout(function () {
+            uni.stopPullDownRefresh();
+        }, 1000);
 	}
 }
 </script>

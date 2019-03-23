@@ -92,7 +92,7 @@
 						<uni-tag text="点击申请查看" type="success" @click="applyMsg"></uni-tag>
 					</view>
 				</view>
-				<view class="uni-textarea" v-else="showStuAddress === true">
+				<view class="uni-textarea" v-if="showStuAddress === true">
 					<textarea name="applyReason" maxlength="-1" v-model="info.stu_address" :disabled="true" />
 				</view>
 			</uni-card>
@@ -164,6 +164,7 @@
 							apply_reason: that.applyReason,
 							apply_user_id: userInfo.stu_id ? userInfo.stu_id : userInfo.tea_id,
 							apply_user_type: userInfo.role_id,
+							apply_user_name: userInfo.stu_name ? userInfo.stu_name : userInfo.tea_name,
 							check_user_id: that.info.stu_id,
 							check_user_type: that.info.role_id,
 							check_user_name: that.info.stu_name

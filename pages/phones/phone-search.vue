@@ -23,7 +23,15 @@
 		},
 		methods:{
 			paramClick (e) {
-				console.log(e)
+				if (this.showInfo) {
+					uni.navigateTo({
+						url: '/pages/self-info/self-info?id='+e.id+'&roleId='+e.roleid
+					});
+				} else {
+					uni.redirectTo({
+						url: '/pages/select-tab-detail/msg-apply/msg-apply?name='+e.name+'&id='+e.id+'&roleId='+e.roleid
+					});
+				}
 			}
 		}
 	}

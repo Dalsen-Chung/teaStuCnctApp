@@ -21,7 +21,8 @@
 		{
 			"path": "pages/tabbar/home/home",
 			"style": {
-				"navigationBarTitleText": "首页"
+				"navigationBarTitleText": "首页",
+				"enablePullDownRefresh": true
 			}
 		},
 		{
@@ -39,7 +40,8 @@
 		{
 			"path": "pages/tabbar/college/college",
 			"style": {
-				"navigationBarTitleText": "学院"
+				"navigationBarTitleText": "学院",
+				"enablePullDownRefresh": true
 			}
 		},
 		{

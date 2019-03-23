@@ -76,6 +76,13 @@
 		onLoad() {
 			this.getCollege()
 			this.getBranch()
+		},
+		onPullDownRefresh() {
+			this.getCollege()
+			this.getBranch()
+			setTimeout(function () {
+				uni.stopPullDownRefresh();
+			}, 1000);
 		}
 	}
 </script>
